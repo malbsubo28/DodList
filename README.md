@@ -1,2 +1,2 @@
 # DodList
-DodList is a simple todo-list cross-platforms mobile app made with React Native.
+DodList is a simple 'Daily Todo List' cross-platforms mobile app made with React Native.
