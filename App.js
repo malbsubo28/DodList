@@ -1,37 +1,37 @@
-import React from 'react'
+import React from 'react';
 import{
   Text,
   View,
   ScrollView,
   StyleSheet,
   useColorScheme
-} from 'react-native'
+} from 'react-native';
+import Task from './src/components/tasks'
 
 const AppHeader = () => {
   const isDarkMode = useColorScheme() === 'dark';
   return(
-    <View style={{height: 100, backgroundColor: isDarkMode ? '#000505' : '#eee8d5'}}>
-      <Text style={{fontSize: 25, fontWidth: '600', paddingTop: 5}}>DodList</Text>
-      <Text>Daily todo-list</Text>
-    </View>
-  );
-}
-
-const Date = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return(
-    <View>
-      <Text style={{fontSize: 18}}>Date: </Text>
-    </View>
-  );
-}
-
-const Task = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return(
-    <View style={{height: 50, backgroundColor: isDarkMode ? '#073642' : '#93aeae'}}>
-      <Text style={{fontSize: 18}}>Task1</Text>
-      <Date/>
+    <View style={styles.appHeaderBox}>
+      <View style={{
+        backgroundColor: '#002b36',
+        marginTop: 5,
+        width: 40,
+        height: 40,
+        borderRadius: 50,
+      }}></View>
+      <Text style={{
+        fontSize: 20,
+        marginLeft: 10,
+        fontWeight: '750',
+        color: isDarkMode ? '#eee8d5' : '#000000',
+      }}>DodList</Text>
+      <View style={{
+        backgroundColor: '#002b36',
+        marginTop: 5,
+        width: 40,
+        height: 40,
+        borderRadius: 50,
+      }}></View>
     </View>
   );
 }
@@ -47,13 +47,23 @@ const App = () => {
       style={backgroundColorMode}>
       <View>
         <AppHeader/>
-        <Task/>
+        <View style={{marginTop: 20}}>
+          <Task/>
+          <Task/>
+        </View>
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-});
+  appHeaderBox:{
+    flexDirection: 'row',
+    height: 45,
+    padding: 5,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  }
+})
 
 export default App;
