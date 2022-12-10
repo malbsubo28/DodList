@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     top: 0,
     right: 0
-  }
+  },
 })
 
 export default App;
