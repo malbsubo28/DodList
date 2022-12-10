@@ -6,9 +6,10 @@ import{
   ScrollView,
   StyleSheet,
   SafeAreaView,
+  StatusBar,
   useColorScheme
 } from 'react-native';
-import Task from './components/tasks';
+import Task from './components/Task';
 import appImage from './assets/images/appImage.png';
 
 const AppHeader = ({jobs}) => {
@@ -74,8 +75,15 @@ const AppHeader = ({jobs}) => {
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? '#000505' : '#ececed'
+  };
   return(
     <SafeAreaView style={{backgroundColor: isDarkMode ? '#000000' : '#ffffff', flex: 1}}>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={backgroundStyle.backgroundColor}
+      />
       <AppHeader jobs={15}/>
       <ScrollView 
         contentInsetAdjustmentBehavior='automatic'
@@ -88,11 +96,11 @@ const App = () => {
           <Task time="12.00">Meeting ...</Task>
           <Task time="15.00">Nyicil project</Task>
           <Task time="20.00">Workout malam 1 Jam</Task>
-          <Task time="20.00">Task 6</Task>
+          <Task time="20.00">Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.</Task>
           <Task time="20.00">Task 7</Task>
           <Task time="20.00">Task 8</Task>
           <Task time="20.00">Task 9</Task>
-          <Task time="20.00">Task 10</Task>
+          <Task time="20.00">Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.</Task>
           <Task time="20.00">Task 11</Task>
           <Task time="20.00">Task 12</Task>
           <Task time="20.00">Task 13</Task>
