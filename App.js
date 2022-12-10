@@ -2,50 +2,70 @@ import React from 'react';
 import{
   Text,
   View,
+  Image,
   ScrollView,
   StyleSheet,
+  SafeAreaView,
   useColorScheme
 } from 'react-native';
-import Task from './src/components/tasks'
+import Task from './src/components/tasks';
+import appIcon from './src/images/app_icon.png';
 
 const AppHeader = () => {
   const isDarkMode = useColorScheme() === 'dark';
   return(
-    <View>
+    <View style={{
+      backgroundColor: isDarkMode ? '#000505' : '#ececed'
+    }}>
       <View style={styles.appHeaderBox}>
-        <View style={{
-          backgroundColor: '#002b36',
-          marginTop: 5,
+        <Image source={appIcon} style={{
+          marginTop: 10,
           width: 40,
           height: 40,
-          borderRadius: 50,
-        }}></View>
-        <Text style={{
-          fontSize: 20,
-          marginLeft: 10,
-          fontWeight: '750',
-          color: isDarkMode ? '#eee8d5' : '#000000',
-        }}>DodList</Text>
+          borderRadius: 50
+        }}></Image>
         <View style={{
-          backgroundColor: '#002b36',
-          marginTop: 5,
-          width: 40,
+          flexDirection: 'row',
           height: 40,
-          borderRadius: 50,
-        }}></View>
+          alignItems: 'flex-end',
+          justifyContent: 'flex-end',
+          position: 'relative'
+        }}>
+          <Text style={{
+            fontSize: 20,
+            marginLeft: 10,
+            fontWeight: '750',
+            color: isDarkMode ? '#eee8d5' : '#000000',
+          }}>DodList</Text>
+          <Text style={{
+            fontSize: 13,
+            marginLeft: 10,
+            fontWeight: '400',
+            color: isDarkMode ? '#eee8d5' : '#000000',
+          }}>Do the List for today !!!</Text>
+        </View>
       </View>
       <View style={styles.appHeaderInfo}>
         <View style={{position: 'relative'}}>
           <Text style={{
-            fontSize: 15,
-            fontWeight: '600',
+            fontSize: 18,
+            fontWeight: '750',
+            color: isDarkMode ? '#eee8d5' : '#000000',
           }}>Today tasks </Text>
         </View>
         <View style={styles.notifyWrapper}>
-          <Text style={styles.taskNotify}>10</Text>
+          <Text style={{
+            fontSize: 13,
+            fontWeight: '700',
+            color: '#eee8d5'
+          }}>16</Text>
         </View>
         <View style={styles.addTaskIcon}>
-          <Text style={styles.taskNotify}>10</Text>
+          <Text style={{
+            fontSize: 20,
+            fontWeight: '400',
+            color: '#eee8d5'
+          }}>+</Text>
         </View>
       </View>
     </View>
@@ -54,34 +74,27 @@ const AppHeader = () => {
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const backgroundColorMode = {
-    backgroundColor: isDarkMode ? '#000000' : '#eee8d5',
-  };
   return(
-    <ScrollView 
-      contentInsetAdjustmentBehavior="automatic"
-      style={backgroundColorMode}>
-      <View>
-        <AppHeader/>
-        <View>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
-          <Task/>
+    <SafeAreaView style={{backgroundColor: isDarkMode ? '#000000' : '#ffffff'}}>
+      <AppHeader/>
+      <ScrollView 
+        contentInsetAdjustmentBehavior='automatic'
+        style={{
+          backgroundColor: isDarkMode ? '#000000' : '#ffffff'
+        }}>
+        <View style={{
+          marginTop: 5,
+          marginBottom: 10
+        }}>
+          <Task time="07.00">Baca buku 30 menit</Task>
+          <Task time="09.00">Workout pagi 1 Jam</Task>
+          <Task time="12.00">Meeting ...</Task>
+          <Task time="15.00">Nyicil project</Task>
+          <Task time="20.00">Workout malam 1 Jam</Task>
+          <Task time="20.00">Task 6</Task>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -89,23 +102,22 @@ const styles = StyleSheet.create({
   appHeaderBox:{
     flexDirection: 'row',
     height: 45,
-    padding: 5,
+    padding: 10,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    marginBottom: 5
   },
   appHeaderInfo:{
-    backgroundColor: '#93a1a1',
-    height: 30,
-    padding: 5,
+    height: 50,
+    marginLeft: 10,
+    marginRight: 10,
     flexDirection: 'row',
-    position: 'relative'
-  },
-  taskNotify: {
-    fontSize: 13,
-    fontWeight: '700'
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
   },
   notifyWrapper: {
-    backgroundColor: '#3258a0',
+    backgroundColor: '#c04660',
     width: 25,
     height: 25,
     borderRadius: 50,
@@ -113,14 +125,13 @@ const styles = StyleSheet.create({
   },
   addTaskIcon:{
     backgroundColor: '#3258a0',
-    width: 25,
-    height: 25,
+    width: 35,
+    height: 35,
     borderRadius: 50,
-    alignItems: 'center',
-    position: 'relative',
-    top: 0,
-    right: 0
-  },
+    position: 'absolute',
+    right: 0,
+    alignItems: 'center'
+  }
 })
 
 export default App;

@@ -1,53 +1,49 @@
 import React, {
-  Component
 } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
+  Image,
+  useColorScheme
 } from 'react-native';
+import trashWhite from '../images/trash_white.png';
+import trashBlack from '../images/trash_black.png';
 
-class Date extends Component{
-  render(){
-    return(
-      <Text style={styles.taskDate}>Date :</Text>
-    );
-  }
-}
 
-const Task = () => {
+const Task = ({children, time}) => {
+  const isDarkMode = useColorScheme() === 'dark';
   return(
-    <View style={styles.taskBox}>
-      <Text style={styles.taskText}>
-        Task 1
-      </Text>
-      <Date/>
+    <View style={{
+      backgroundColor: isDarkMode ? '#000505' : '#ececed',
+      margin: 5,
+      padding: 5,
+      borderRadius: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    }}>
+      <View>
+        <Text style={{
+          color : isDarkMode ? '#eee8d5' : '#000000',
+          fontSize: 18,
+          flexWrap: 'wrap'
+        }}>{children}</Text>
+        <Text style={{
+          color : '#93a1a1',
+          fontSize: 15,
+          fontWeight: '350'
+        }}>{time}</Text>
+      </View>
+      <View style={{
+        backgroundColor: isDarkMode ? '#000505' : '#ececed',
+      }}>
+        <Image source={isDarkMode ? trashBlack : trashWhite} style={{
+          width:25,
+          height:25,
+        }}></Image>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  taskBox:{
-    backgroundColor: '#22303c',
-    margin: 5,
-    borderRadius: 10,
-    position: 'relative'
-  },
-  taskText:{
-    color : '#eee8d5',
-    fontSize: 18,
-    paddingLeft: 5,
-    paddingRight: 5,
-    flexWrap: 'wrap'
-  },
-  taskDate:{
-    color : '#eee8d5',
-    fontSize: 15,
-    paddingLeft: 5,
-    paddingRight: 5,
-    paddingBottom: 3,
-    fontWeight: '350'
-  },
-});
 
 export default Task;
