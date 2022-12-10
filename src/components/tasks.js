@@ -6,8 +6,8 @@ import {
   Image,
   useColorScheme
 } from 'react-native';
-import trashWhite from '../images/trash_white.png';
-import trashBlack from '../images/trash_black.png';
+import trashWhite from '../assets/icons/trashWhite.png';
+import trashBlack from '../assets/icons/trashBlack.png';
 
 
 const Task = ({children, time}) => {
@@ -15,8 +15,8 @@ const Task = ({children, time}) => {
   return(
     <View style={{
       backgroundColor: isDarkMode ? '#000505' : '#ececed',
-      margin: 5,
-      padding: 5,
+      padding: 10,
+      margin: 7,
       borderRadius: 10,
       flexDirection: 'row',
       alignItems: 'center',
@@ -25,12 +25,12 @@ const Task = ({children, time}) => {
       <View>
         <Text style={{
           color : isDarkMode ? '#eee8d5' : '#000000',
-          fontSize: 18,
+          fontSize: 17,
           flexWrap: 'wrap'
         }}>{children}</Text>
         <Text style={{
           color : '#93a1a1',
-          fontSize: 15,
+          fontSize: 13,
           fontWeight: '350'
         }}>{time}</Text>
       </View>
