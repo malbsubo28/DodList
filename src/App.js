@@ -134,19 +134,21 @@ const styles = StyleSheet.create({
   },
   notifyWrapper: {
     backgroundColor: '#c04660',
-    width: 25,
-    height: 25,
+    width: 23,
+    height: 23,
     borderRadius: 50,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   addTaskIcon:{
     backgroundColor: '#3258a0',
-    width: 35,
-    height: 35,
+    width: 33,
+    height: 33,
     borderRadius: 50,
     position: 'absolute',
     right: 0,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
 

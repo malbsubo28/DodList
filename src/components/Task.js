@@ -25,8 +25,8 @@ const Task = ({children, time}) => {
     }}>
       <View>
         <Image source={isDarkMode ? checkBlack : checkWhite} style={{
-          width:26,
-          height:26,
+          width:23,
+          height:23,
           position: 'absolute',
           left: 0,
           top: 2
@@ -36,21 +36,21 @@ const Task = ({children, time}) => {
           fontSize: 17,
           flexWrap: 'wrap',
           marginRight: 35,
-          marginLeft: 35
+          marginLeft: 33
         }}>{children}</Text>
         <Text style={{
           color : '#93a1a1',
           fontSize: 13,
           fontWeight: '350',
-          marginLeft: 35
+          marginLeft: 33
         }}>{time}</Text>
       </View>
       <View style={{
         backgroundColor: isDarkMode ? '#000505' : '#ececed',
       }}>
         <Image source={isDarkMode ? trashBlack : trashWhite} style={{
-          width:23,
-          height:23,
+          width:20,
+          height:20,
           position: 'absolute',
           right: 0,
           top: 3
