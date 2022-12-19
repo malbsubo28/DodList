@@ -7,12 +7,13 @@ import{
   StyleSheet,
   SafeAreaView,
   StatusBar,
-  useColorScheme
+  useColorScheme,
+  TouchableOpacity
 } from 'react-native';
 import Task from './components/Task';
 import appImage from './assets/images/appImage.png';
 
-const AppHeader = ({jobs}) => {
+const AppHeader = (props) => {
   const isDarkMode = useColorScheme() === 'dark';
   return(
     <View style={{
@@ -56,64 +57,50 @@ const AppHeader = ({jobs}) => {
         </View>
         <View style={styles.notifyWrapper}>
           <Text style={{
-            fontSize: 13,
+            fontSize: 14,
             fontWeight: '700',
             color: '#eee8d5'
-          }}>{jobs}</Text>
+          }}>{props.jobs}</Text>
         </View>
-        <View style={styles.addTaskIcon}>
+        <TouchableOpacity onPress={props.addPress} style={styles.addTaskIcon}>
           <Text style={{
-            fontSize: 20,
-            fontWeight: '400',
+            fontSize: 17,
             color: '#eee8d5'
-          }}>+</Text>
-        </View>
+          }}>Add +</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
 
 const App = () => {
-
-  const [isTaskAvailable, setTaskAvailable] = useState(true);
-  const [tasks, setTasks] = useState(15);
-
-  {/*useEffect(() => {
-    setTimeout(() => {
-      setTaskAvailable(false);
-      setTasks(0);
-    }, 8000);
-  }, []);*/}
-
-  useEffect(() => {
-    console.log('===> did mount!');
-    setTimeout(() => {
-      if(isTaskAvailable){
-        setTasks(20);
-      }
-    }, 3000);
-    return() => {
-      console.log('===> did update!');
-    }
-  }, [tasks]);
-
+  const [tasks, setTasks] = useState(0);
+  const [isAvailable, setAvailable] = useState(true);
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#000505' : '#ececed'
   };
+
+  useEffect(() => {
+    if(isAvailable){
+      if(tasks == 0){
+        setAvailable(false);
+      }
+    }
+  }, [tasks])
+
   return(
     <SafeAreaView style={{backgroundColor: isDarkMode ? '#000000' : '#ffffff', flex: 1}}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <AppHeader jobs={tasks}/>
+      <AppHeader addPress={() => {setTasks(tasks + 1)}} jobs={tasks}/>
       <ScrollView 
         contentInsetAdjustmentBehavior='automatic'
-        style={{
-          backgroundColor: isDarkMode ? '#000000' : '#ffffff'
-        }}>
-        {isTaskAvailable && <View style={{padding: 10}}>
+        style={{backgroundColor: isDarkMode ? '#000000' : '#ffffff'
+      }}>
+      <View style={{padding: 10}}>
           <Task time="07.00">Workout pagi 1 Jam</Task>
           <Task time="09.00">Baca buku 30 menit</Task>
           <Task time="12.00">Meeting ...</Task>
@@ -129,7 +116,7 @@ const App = () => {
           <Task time="20.00">Task 13</Task>
           <Task time="20.00">Task 14</Task>
           <Task time="20.00">Task 15</Task>
-        </View>}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -165,13 +152,13 @@ const styles = StyleSheet.create({
   },
   addTaskIcon:{
     backgroundColor: '#3258a0',
-    width: 33,
-    height: 33,
-    borderRadius: 50,
+    width: 60,
+    height: 25,
+    borderRadius: 10,
     position: 'absolute',
-    right: 0,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    right: 0
   }
 })
 

@@ -1,19 +1,22 @@
-import React, {
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   Image,
   useColorScheme,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import trashWhite from '../assets/icons/trashWhite.png';
 import trashBlack from '../assets/icons/trashBlack.png';
-import checkWhite from '../assets/icons/checkWhite.png';
-import checkBlack from '../assets/icons/checkBlack.png';
+import CheckBox, {isChecked} from './CheckBox';
 
 const Task = ({children, time}) => {
   const isDarkMode = useColorScheme() === 'dark';
+  const textColor = {
+    color: isDarkMode ? '#eee8d5' : '#000000',
+  }
+
   return(
     <View style={{
       backgroundColor: isDarkMode ? '#000505' : '#ececed',
@@ -25,13 +28,7 @@ const Task = ({children, time}) => {
       position: 'relative'
     }}>
       <View>
-        <Image source={isDarkMode ? checkBlack : checkWhite} style={{
-          width:23,
-          height:23,
-          position: 'absolute',
-          left: 0,
-          top: 2
-        }}></Image>
+        <CheckBox/>
         <View style={{
             backgroundColor: isDarkMode ? '#000505' : '#ececed',
             marginRight: 35,
@@ -40,8 +37,9 @@ const Task = ({children, time}) => {
         }}>
           <ScrollView horizontal>
             <Text style={{
-              color : isDarkMode ? '#eee8d5' : '#000000',
-              fontSize: 17
+              fontSize: 17,
+              textDecorationLine: isChecked ? 'line-through' : 'none',
+              color: isChecked ?  '#93a1a1' : textColor
             }}>{children}</Text>
           </ScrollView>
         </View>
@@ -52,17 +50,19 @@ const Task = ({children, time}) => {
           marginLeft: 33
         }}>{time}</Text>
       </View>
-      <View style={{
-        backgroundColor: isDarkMode ? '#000505' : '#ececed',
-      }}>
-        <Image source={isDarkMode ? trashBlack : trashWhite} style={{
-          width:20,
-          height:20,
-          position: 'absolute',
-          right: 0,
-          top: 3
-        }}></Image>
-      </View>
+      <TouchableOpacity onPress={() => alert("Are you sure ?")}>
+        <View style={{
+          backgroundColor: isDarkMode ? '#000505' : '#ececed',
+        }}>
+          <Image source={isDarkMode ? trashBlack : trashWhite} style={{
+            width:20,
+            height:20,
+            position: 'absolute',
+            right: 0,
+            top: 3
+          }}></Image>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
