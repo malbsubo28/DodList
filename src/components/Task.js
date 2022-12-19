@@ -4,7 +4,8 @@ import {
   View,
   Text,
   Image,
-  useColorScheme
+  useColorScheme,
+  ScrollView,
 } from 'react-native';
 import trashWhite from '../assets/icons/trashWhite.png';
 import trashBlack from '../assets/icons/trashBlack.png';
@@ -31,13 +32,19 @@ const Task = ({children, time}) => {
           left: 0,
           top: 2
         }}></Image>
-        <Text style={{
-          color : isDarkMode ? '#eee8d5' : '#000000',
-          fontSize: 17,
-          flexWrap: 'wrap',
-          marginRight: 35,
-          marginLeft: 33
-        }}>{children}</Text>
+        <View style={{
+            backgroundColor: isDarkMode ? '#000505' : '#ececed',
+            marginRight: 35,
+            marginLeft: 33,
+            height: 28,
+        }}>
+          <ScrollView horizontal>
+            <Text style={{
+              color : isDarkMode ? '#eee8d5' : '#000000',
+              fontSize: 17
+            }}>{children}</Text>
+          </ScrollView>
+        </View>
         <Text style={{
           color : '#93a1a1',
           fontSize: 13,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import{
   Text,
   View,
@@ -74,6 +74,29 @@ const AppHeader = ({jobs}) => {
 }
 
 const App = () => {
+
+  const [isTaskAvailable, setTaskAvailable] = useState(true);
+  const [tasks, setTasks] = useState(15);
+
+  {/*useEffect(() => {
+    setTimeout(() => {
+      setTaskAvailable(false);
+      setTasks(0);
+    }, 8000);
+  }, []);*/}
+
+  useEffect(() => {
+    console.log('===> did mount!');
+    setTimeout(() => {
+      if(isTaskAvailable){
+        setTasks(20);
+      }
+    }, 3000);
+    return() => {
+      console.log('===> did update!');
+    }
+  }, [tasks]);
+
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#000505' : '#ececed'
@@ -84,13 +107,13 @@ const App = () => {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <AppHeader jobs={15}/>
+      <AppHeader jobs={tasks}/>
       <ScrollView 
         contentInsetAdjustmentBehavior='automatic'
         style={{
           backgroundColor: isDarkMode ? '#000000' : '#ffffff'
         }}>
-        <View style={{padding: 10}}>
+        {isTaskAvailable && <View style={{padding: 10}}>
           <Task time="07.00">Workout pagi 1 Jam</Task>
           <Task time="09.00">Baca buku 30 menit</Task>
           <Task time="12.00">Meeting ...</Task>
@@ -106,7 +129,7 @@ const App = () => {
           <Task time="20.00">Task 13</Task>
           <Task time="20.00">Task 14</Task>
           <Task time="20.00">Task 15</Task>
-        </View>
+        </View>}
       </ScrollView>
     </SafeAreaView>
   );
