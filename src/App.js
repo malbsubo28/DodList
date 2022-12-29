@@ -11,7 +11,7 @@ import{
   TouchableOpacity
 } from 'react-native';
 import Task from './components/Task';
-import appImage from './assets/images/appImage.png';
+import addIcon from './assets/icons/addIcon.png'
 
 const AppHeader = (props) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -20,23 +20,16 @@ const AppHeader = (props) => {
       backgroundColor: isDarkMode ? '#000505' : '#ececed'
     }}>
       <View style={styles.appHeaderBox}>
-        <Image source={appImage} style={{
-          marginTop: 10,
-          width: 40,
-          height: 40,
-          borderRadius: 50
-        }}></Image>
         <View style={{
           flexDirection: 'row',
-          height: 40,
+          height: 30,
           alignItems: 'flex-end',
           justifyContent: 'flex-end',
           position: 'relative'
         }}>
           <Text style={{
             fontSize: 20,
-            marginLeft: 10,
-            fontWeight: '750',
+            fontWeight: 'bold',
             color: isDarkMode ? '#eee8d5' : '#000000',
           }}>DodList</Text>
           <Text style={{
@@ -44,7 +37,7 @@ const AppHeader = (props) => {
             marginLeft: 10,
             fontWeight: '400',
             color: '#93a1a1',
-          }}>Do the List for today !!!</Text>
+          }}>Do the List !!!</Text>
         </View>
       </View>
       <View style={styles.appHeaderInfo}>
@@ -53,7 +46,7 @@ const AppHeader = (props) => {
             fontSize: 17,
             fontWeight: '750',
             color: isDarkMode ? '#eee8d5' : '#000000',
-          }}>Today tasks </Text>
+          }}>Tasks </Text>
         </View>
         <View style={styles.notifyWrapper}>
           <Text style={{
@@ -63,10 +56,11 @@ const AppHeader = (props) => {
           }}>{props.jobs}</Text>
         </View>
         <TouchableOpacity onPress={props.addPress} style={styles.addTaskIcon}>
-          <Text style={{
-            fontSize: 17,
-            color: '#eee8d5'
-          }}>Add +</Text>
+          <Image source={addIcon} style={{
+            width: 60,
+            height: 25,
+            borderRadius: 10
+          }}></Image>
         </TouchableOpacity>
       </View>
     </View>
@@ -75,18 +69,23 @@ const AppHeader = (props) => {
 
 const App = () => {
   const [tasks, setTasks] = useState(0);
-  const [isAvailable, setAvailable] = useState(true);
+  const [isAvailable, setAvailable] = useState(false);
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#000505' : '#ececed'
   };
 
   useEffect(() => {
-    if(isAvailable){
-      if(tasks == 0){
-        setAvailable(false);
-      }
+    if(tasks == 0){
+      setAvailable(false);
+    }else{
+      setAvailable(true);
     }
+    console.log("===> isAvailable = ", isAvailable);
+    console.log("===> tasks =", tasks);
+    return(
+      console.log("===> components update")
+    );
   }, [tasks])
 
   return(
@@ -96,12 +95,12 @@ const App = () => {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <AppHeader addPress={() => {setTasks(tasks + 1)}} jobs={tasks}/>
-      <ScrollView 
+      {isAvailable && <ScrollView 
         contentInsetAdjustmentBehavior='automatic'
         style={{backgroundColor: isDarkMode ? '#000000' : '#ffffff'
       }}>
-      <View style={{padding: 10}}>
-          <Task time="07.00">Workout pagi 1 Jam</Task>
+        <View style={{padding: 10}}>
+        <Task time="07.00">Workout pagi 1 Jam</Task>
           <Task time="09.00">Baca buku 30 menit</Task>
           <Task time="12.00">Meeting ...</Task>
           <Task time="15.00">Nyicil project</Task>
@@ -117,7 +116,16 @@ const App = () => {
           <Task time="20.00">Task 14</Task>
           <Task time="20.00">Task 15</Task>
         </View>
-      </ScrollView>
+      </ScrollView>}
+      {!isAvailable && <View style={{
+        alignItems: 'center',
+        paddingTop: 250
+      }}>
+        <Text style={{
+          fontSize: 17,
+          color: '#586e75'
+        }}>There is no task to do !</Text>
+      </View>}
     </SafeAreaView>
   );
 };
@@ -125,7 +133,7 @@ const App = () => {
 const styles = StyleSheet.create({
   appHeaderBox:{
     flexDirection: 'row',
-    height: 45,
+    height: 30,
     padding: 15,
     marginTop: 5,
     alignItems: 'center',
@@ -144,20 +152,15 @@ const styles = StyleSheet.create({
   },
   notifyWrapper: {
     backgroundColor: '#c04660',
-    width: 23,
-    height: 23,
+    width: 25,
+    height: 25,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center'
   },
   addTaskIcon:{
-    backgroundColor: '#3258a0',
-    width: 60,
-    height: 25,
-    borderRadius: 10,
     position: 'absolute',
     alignItems: 'center',
-    justifyContent: 'center',
     right: 0
   }
 })

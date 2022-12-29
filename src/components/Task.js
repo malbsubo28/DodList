@@ -1,20 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   Image,
   useColorScheme,
-  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 import trashWhite from '../assets/icons/trashWhite.png';
 import trashBlack from '../assets/icons/trashBlack.png';
-import CheckBox, {isChecked} from './CheckBox';
+import checkBoxBlack from '../assets/icons/checkBoxBlack.png';
+import checkBoxWhite from '../assets/icons/checkBoxWhite.png';
+import checkBlack from '../assets/icons/checkBlack.png';
+import checkWhite from '../assets/icons/checkWhite.png';
+
+class checkSource {
+  static checkMode=checkBoxBlack;
+}
 
 const Task = ({children, time}) => {
   const isDarkMode = useColorScheme() === 'dark';
+  const [isChecked, setChecked] = useState(false);
   const textColor = {
     color: isDarkMode ? '#eee8d5' : '#000000',
+  }
+
+  if(isChecked){
+    if(isDarkMode){
+      checkSource.checkMode=checkBlack;
+    }else{
+      checkSource.checkMode=checkWhite;
+    }
+  }else{
+    if(isDarkMode){
+      checkSource.checkMode=checkBoxBlack;
+    }else{
+      checkSource.checkMode=checkBoxWhite;
+    }
   }
 
   return(
@@ -28,20 +49,27 @@ const Task = ({children, time}) => {
       position: 'relative'
     }}>
       <View>
-        <CheckBox/>
+        <TouchableOpacity onPress={() => setChecked(isChecked ? false : true)}>
+          <Image source={checkSource.checkMode} style={{
+            width:23,
+            height:23,
+            position: 'absolute',
+            left: 0,
+            top: 2
+          }}></Image>
+        </TouchableOpacity>
         <View style={{
             backgroundColor: isDarkMode ? '#000505' : '#ececed',
-            marginRight: 35,
+            marginRight: 30,
             marginLeft: 33,
-            height: 28,
+            flex: 1
         }}>
-          <ScrollView horizontal>
-            <Text style={{
-              fontSize: 17,
-              textDecorationLine: isChecked ? 'line-through' : 'none',
-              color: isChecked ?  '#93a1a1' : textColor
-            }}>{children}</Text>
-          </ScrollView>
+          <Text style={{
+            fontSize: 17,
+            textDecorationLine: isChecked ? 'line-through' : 'none',
+            color: isChecked ?  '#586e75' : textColor.color,
+            flexWrap: 'wrap'
+          }}>{children}</Text>
         </View>
         <Text style={{
           color : '#93a1a1',
