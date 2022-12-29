@@ -17,7 +17,7 @@ class checkSource {
   static checkMode=checkBoxBlack;
 }
 
-const Task = ({children, time}) => {
+const Task = (props) => {
   const isDarkMode = useColorScheme() === 'dark';
   const [isChecked, setChecked] = useState(false);
   const textColor = {
@@ -25,17 +25,9 @@ const Task = ({children, time}) => {
   }
 
   if(isChecked){
-    if(isDarkMode){
-      checkSource.checkMode=checkBlack;
-    }else{
-      checkSource.checkMode=checkWhite;
-    }
+    checkSource.checkMode = isChecked ? checkBlack : checkWhite;
   }else{
-    if(isDarkMode){
-      checkSource.checkMode=checkBoxBlack;
-    }else{
-      checkSource.checkMode=checkBoxWhite;
-    }
+    checkSource.checkMode = isDarkMode ? checkBoxBlack : checkBoxWhite;
   }
 
   return(
@@ -69,14 +61,14 @@ const Task = ({children, time}) => {
             textDecorationLine: isChecked ? 'line-through' : 'none',
             color: isChecked ?  '#586e75' : textColor.color,
             flexWrap: 'wrap'
-          }}>{children}</Text>
+          }}>{props.title}</Text>
         </View>
         <Text style={{
           color : '#93a1a1',
           fontSize: 13,
           fontWeight: '350',
           marginLeft: 33
-        }}>{time}</Text>
+        }}>{props.time}</Text>
       </View>
       <TouchableOpacity onPress={() => alert("Are you sure ?")}>
         <View style={{
